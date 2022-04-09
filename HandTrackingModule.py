@@ -109,16 +109,15 @@ def main():
             centerPoint1 = hands1['center']
             centerPoint2 = hands2['center']
 
-            x1, y1 = centerPoint1
-            x2, y2 = centerPoint2
-            cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
-            length = math.hypot(x2 - x1, y2 - y1)
+            distance = math.dist(centerPoint1, centerPoint2)
+            if distance > 100:
+                cv2.circle(img, centerPoint1, 40, (255, 120, 0), -1)
 
-            cv2.putText(img, str(length), (250, 250), cv2.FONT_HERSHEY_PLAIN,
+            cv2.putText(img, str(distance), (250, 250), cv2.FONT_HERSHEY_PLAIN,
                         2, (255, 0, 255), 2)
 
-        previous_hands = hands
         key = cv2.waitKey(1)
+        previous_hands = hands
 
         cv2.imshow("Image", img)
         cv2.waitKey(1)
